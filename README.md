@@ -45,7 +45,7 @@ Objects of this type describe an individual user of the system, regardless of wh
 
 | Name | Prototype | Return Value | Description |
 | -------- | ------------- | ----------- | ----------- |
-| getUser | ```function __chatApplication.User.getUser(**Text** jid)``` | [User](#User)) | Get a user object for the
+| getUser | ```function __chatApplication.User.getUser(**Text** jid)``` | [User](#User) | Get a user object for the
 
 ### Callbacks
 
