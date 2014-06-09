@@ -35,8 +35,8 @@ Objects of this type describe an individual user of the system, regardless of wh
 | -------- | ------------- | ----------- |
 | **name** | **Text** | Human-readable name of this user.  ontrast **nickName** in [Contact](#Contact) |
 | **JID** | **Text** | The JID of this user, as defined by RFC6122 |
-| **Organisation** | **Text** (Optional) | If present, names the organisation a user is from.  This is to allow different organisations collaborating within the same user space to namespace their users independantly|
-| **Status** | [Status](#Status) | The last-observed Status of this user to this client.  Note that other clients may observe a different status, and that this status may not be entirely up-to-date, although it will be updated automatically when this client recieves a Presence Change notification from the configured XMPP server |
+| **organisation** | **Text** (Optional) | If present, names the organisation a user is from.  This is to allow different organisations collaborating within the same user space to namespace their users independantly|
+| **status** | [Status](#Status) | The last-observed Status of this user to this client.  Note that other clients may observe a different status, and that this status may not be entirely up-to-date, although it will be updated automatically when this client recieves a Presence Change notification from the configured XMPP server |
 | **isCurrentUser** | **Boolean** | If true, then this user object represents the current user |
 | **currentUser** | [User](#User) (Global) | The currently logged-in user |
 | **settings** | [Settings](#Settings) | This users' Settings and preferences.  Changes to this object will not be transmitted to the server, and take permenant effect (where applicable), until the saveUserSettings function has been invoked.  If the user does not represent the current user, this will be set to **null**  |
@@ -45,13 +45,38 @@ Objects of this type describe an individual user of the system, regardless of wh
 
 | Name | Prototype | Return Value | Description |
 | -------- | ------------- | ----------- | ----------- |
-| getUser | ```function __chatApplication.User.getUser(**Text** jid)``` | [User](#User) | Get a user object for the
+| **getUser** | ```function __chatApplication.User.getUser(**Text** jid)``` (Global) | [User](#User) | Get a user object for the supplied JID, or **null** if that user is not on the current user's roster, or does not exist.  See [Search](#Search) for details on finding users not on the roster |
+| **saveSettings** | ```function __chatApplication.User.saveSettings``` | Persists the given user's [Settings](#Settings), including any additional properties defined.  If the current user does not have permissions to set these settings, then invoking this function does nothing |
+
 
 ### Callbacks
 
 | Name | Prototype | Return Value | Description |
 | -------- | ------------- | ----------- | ----------- |
 | onPresenceChange | ```function __chatApplication.User.onPresenceChange([User](#User) user, [Status](#Status) status)``` | void | Implement this function to perform processing when a user's Status changes.|
+
+## Settings
+
+This object defines a users' settings and preferences.  In addition to the fields below, implementors may define additional properties of objects of this type, which **will** be stored via calls to ```saveSettings``` on the [User](#User) object.
+
+**Scope:**  ```__chatApplication.User.Settings```
+
+### Properties
+
+| Property | Type | Description |
+| -------- | ------------- | ----------- |
+| user | [User](#User) | The user these settings apply to (usually the current user) |
+
+### Functions
+| Name | Prototype | Return Value | Description |
+| -------- | ------------- | ----------- | ----------- |
+| save | ```function __chatApplication.User.Settings.save()``` | void | Equivilant to ```this.user.saveSettings()``` |
+
+## Status
+
+Objects in this scope describe the status of a particular user at a particular time.  Note that the properties of a [Status](#Status) object instance do not update as the relevant [User](#User)'s status changes - instead, the value of the [User](#User)'s ```status``` property will change to refer to a different instance of this type.
+
+
 
 
 
