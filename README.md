@@ -5,9 +5,11 @@ Provides a simple plain-javascript object model for emite to allow implementors 
 This abstracts out the major functions of a chap application into a set of objects which can be tied into a Model-View-Whatever framework.
 
 
-# API Documentation
+# Documentation
 
-The API documentation is available within the github wiki at the link below:
+The documentation is available within the github wiki at the link below:
+
+[Documentation](https://github.com/surevine/simple-emite-api/wiki)
 
 [API Documentation](https://github.com/surevine/simple-emite-api/wiki/API-Documentation)
 
